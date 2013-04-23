@@ -9,13 +9,13 @@
       Add
     } else {
       Edit
-    } an article</h2>
+    } a trade blotter manager report</h2>
   @helper.form(action = (if(!id.isDefined) routes.Articles.create else routes.Articles.edit(id.get)), 'class -> "form-horizontal") {
     @helper.inputText(form("title"))
     @helper.inputText(form("publisher"))
     @helper.textarea(form("content"))
     <div class="form-actions">
-      <input class="btn btn-primary" type="submit">
+      <input class="btn btn-large" type="submit" style="width: 100px;">
     </div>
   }
   </div>

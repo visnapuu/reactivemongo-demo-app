@@ -1,0 +1,40 @@
+@(generalres: List[models.GeneralRE], activeSort: String)
+
+@main("Welcome to Play 2.0") {
+  <div class="row">
+    <div class="span12">
+      <h2>Available General RE Transactions</h2>
+      <div id="sort">
+        <span>Sort by:</span>
+        <ul class="nav nav-pills">
+          <li @if(activeSort == "account_id"){class="active"}><a href="@routes.GeneralREs.index?sort=account_id">account_id</a></li>
+          <li @if(activeSort == "-account_id"){class="active"}><a href="@routes.GeneralREs.index?sort=-account_id">-account_id</a></li>
+          <li @if(activeSort == "account_name"){class="active"}><a href="@routes.GeneralREs.index?sort=account_name">account_name</a></li>
+          <li @if(activeSort == "-account_name"){class="active"}><a href="@routes.GeneralREs.index?sort=-account_name">-account_name</a></li>
+          <li @if(activeSort == "transaction_type"){class="active"}><a href="@routes.GeneralREs.index?sort=transaction_type">transaction_type</a></li>
+          <li @if(activeSort == "-transaction_type"){class="active"}><a href="@routes.GeneralREs.index?sort=-transaction_type">-transaction_type</a></li>
+          <li @if(activeSort == "none"){class="active"}><a href="@routes.GeneralREs.index">none</a></li>
+        </ul>
+      </div>
+      @if(generalres.isEmpty) {
+        <p>No general re transactions available yet.</p>
+      } else {
+      <table class="table table-condensed">
+      @generalres.map { generalre =>
+          <tr>
+              <td>@generalre.transaction_type</td>
+              <td><a href="@routes.GeneralREs.showEditForm(generalre.id.get.stringify)">@generalre.account_id</a></td>
+              <td>@generalre.account_name</td>
+              <td>@generalre.trade_date</td>
+              <td>@generalre.security_name</td>
+              <td><a href="@routes.GeneralREs.delete(generalre.id.get.stringify)" class="delete">delete</a></td>
+          </tr>
+      }
+      </table>
+      }
+      <div>
+        <a href="@routes.GeneralREs.showCreationForm">Create</a>
+      </div>
+    </div>
+  </div>
+}

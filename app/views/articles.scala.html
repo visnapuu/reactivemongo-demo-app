@@ -3,7 +3,7 @@
 @main("Welcome to Play 2.0") {
   <div class="row">
     <div class="span12">
-      <h2>Available articles</h2>
+      <h2>Available Reports</h2>
       <div id="sort">
         <span>Sort by:</span>
         <ul class="nav nav-pills">
@@ -19,7 +19,7 @@
         </ul>
       </div>
       @if(articles.isEmpty) {
-        <p>No articles available yet.</p>
+        <p>No reports available yet.</p>
       } else {
       <ul>
       @articles.map { article =>

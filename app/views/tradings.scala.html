@@ -1,0 +1,66 @@
+@(tradings: List[models.Trading], activeSort: String, activeReport: String)
+
+@main("Welcome to Play 2.0") {
+<div class="container">
+    <div class="row-fluid">
+        <div class="span12">
+            <h2>Short Term Trading</h2>
+            <div id="sort">
+                <span>Trading Report:</span>
+                <ul class="nav nav-pills">
+                    <li @if(activeReport == "short_term_trading"){class="active"}><a href="@routes.Tradings.index?report=short_term_trading">Short Term Trading</a></li>
+                    <li @if(activeReport == "cross_trading"){class="active"}><a href="@routes.Tradings.index?report=cross_trading">Cross Trading</a></li>
+                    <li @if(activeReport == "none"){class="active"}><a href="@routes.Tradings.index">none</a></li>
+                </ul>
+                <!--<span>Sort by:</span>-->
+                <!--<ul class="nav nav-pills">-->
+                    <!--<li @if(activeSort == "account_id"){class="active"}><a href="@routes.Tradings.index?sort=account_id&report=@activeReport">account id</a></li>-->
+                    <!--<li @if(activeSort == "-account_id"){class="active"}><a href="@routes.Tradings.index?sort=-account_id&report=@activeReport">-account id</a></li>-->
+                    <!--<li @if(activeSort == "account_description"){class="active"}><a href="@routes.Tradings.index?sort=account_description&report=@activeReport">account description</a></li>-->
+                    <!--<li @if(activeSort == "-account_description"){class="active"}><a href="@routes.Tradings.index?sort=-account_description&report=@activeReport">-account description</a></li>-->
+                    <!--<li @if(activeSort == "transaction_type"){class="active"}><a href="@routes.Tradings.index?sort=transaction_type&report=@activeReport">transaction type</a></li>-->
+                    <!--<li @if(activeSort == "-transaction_type"){class="active"}><a href="@routes.Tradings.index?sort=-transaction_type&report=@activeReport">-transaction type</a></li>-->
+                    <!--<li @if(activeSort == "security_name"){class="active"}><a href="@routes.Tradings.index?sort=security_name&report=@activeReport">security name</a></li>-->
+                    <!--<li @if(activeSort == "-security_name"){class="active"}><a href="@routes.Tradings.index?sort=-security_name&report=@activeReport">-security name</a></li>-->
+                    <!--<li @if(activeSort == "none"){class="active"}><a href="@routes.Tradings.index">none</a></li>-->
+                <!--</ul>-->
+            </div>
+            @if(tradings.isEmpty) {
+            <p>...</p>
+            } else {
+            <table class="table table-condensed" style="font-size: 80%">
+                <thead>
+                <th><a href="@routes.Tradings.index?sort=transaction_type&report=@activeReport">+</a>tx<a href="@routes.Tradings.index?sort=-transaction_type&report=@activeReport">-</a></th>
+                <th><a href="@routes.Tradings.index?sort=account_id&report=@activeReport">+</a>act id<a href="@routes.Tradings.index?sort=-account_id&report=@activeReport">-</a></th>
+                <th><a href="@routes.Tradings.index?sort=account_description&report=@activeReport">+</a>act desc<a href="@routes.Tradings.index?sort=-account_description&report=@activeReport">-</a></th>
+                <th><a href="@routes.Tradings.index?sort=trade_date&report=@activeReport">+</a>trade<a href="@routes.Tradings.index?sort=-trade_date&report=@activeReport">-</a></th>
+                <th><a href="@routes.Tradings.index?sort=security_name&report=@activeReport">+</a>security<a href="@routes.Tradings.index?sort=-security_name&report=@activeReport">-</a></th>
+                <th><a href="@routes.Tradings.index?sort=price&report=@activeReport">+</a>price<a href="@routes.Tradings.index?sort=-price&report=@activeReport">-</a></th>
+                <th><a href="@routes.Tradings.index?sort=quantity&report=@activeReport">+</a>qty<a href="@routes.Tradings.index?sort=-quantity&report=@activeReport">-</a></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                </thead>
+                @tradings.map { trading =>
+                <tr>
+                    <td>@trading.transaction_type</td>
+                    <td><a href="@routes.Tradings.showEditForm(trading.id.get.stringify)">@trading.account_id</a></td>
+                    <td>@trading.account_description</td>
+                    <td>@trading.trade_date.map(u => org.joda.time.format.DateTimeFormat.forPattern("MMM dd, yyyy").print(u)).orElse(Some("n/a"))</td>
+                    <td>@trading.security_name</td>
+                    <td style="text-align: right">@("%,4.4f".format (trading.price))</td>
+                    <td style="text-align: right">@("%,4.4f".format (trading.quantity))</td>
+                    <td style="text-align: right">@("%,4.4f".format (trading.commission))</td>
+                    <td>@trading.currency</td>
+                    <td><a href="@routes.Tradings.delete(trading.id.get.stringify)" class="delete">delete</a></td>
+                </tr>
+                }
+            </table>
+            }
+            <!--<div>-->
+                <!--<a href="@routes.GeneralREs.showCreationForm">Create</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+}

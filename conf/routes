@@ -15,3 +15,30 @@ DELETE  /attachments/:id            controllers.Articles.removeAttachment(id)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
+
+
+GET     /transactions/                           controllers.GeneralREs.index
+GET     /transactions/generalres/new               controllers.GeneralREs.showCreationForm
+POST    /transactions/generalres/new               controllers.GeneralREs.create
+GET     /transactions/generalres/:id               controllers.GeneralREs.showEditForm(id)
+POST    /transactions/generalres/:id               controllers.GeneralREs.edit(id)
+DELETE  /transactions/generalres/:id               controllers.GeneralREs.delete(id)
+POST    /transactions/generalres/:id/attachments   controllers.GeneralREs.saveAttachment(id)
+GET     /transactions/attachments/:id            controllers.GeneralREs.getAttachment(id)
+DELETE  /transactions/attachments/:id            controllers.GeneralREs.removeAttachment(id)
+
+
+
+GET     /trading/                           controllers.Tradings.index
+GET     /trading/new               controllers.Tradings.showCreationForm
+POST    /trading/new               controllers.Tradings.create
+GET     /trading/:id               controllers.Tradings.showEditForm(id)
+POST    /trading/:id               controllers.Tradings.edit(id)
+DELETE  /trading/:id               controllers.Tradings.delete(id)
+POST    /trading/:id/attachments   controllers.Tradings.saveAttachment(id)
+GET     /trading/:id            controllers.Tradings.getAttachment(id)
+DELETE  /trading/:id            controllers.Tradings.removeAttachment(id)
+
+
